@@ -10,4 +10,10 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    preview: {
+        allowedHosts: ['talabiyatec-app.onrender.com']
+    },
+    server: {
+        allowedHosts: ['talabiyatec-app.onrender.com']
+    }
 });
