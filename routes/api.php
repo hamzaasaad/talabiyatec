@@ -25,5 +25,11 @@ Route::middleware(['auth.jwt'])->group(function () {
     Route::get('/user', fn() => auth()->user());
     Route::get('v1/auth/sessions', [AuthController::class, 'sessions']);
     Route::post('v1/auth/logout-all', [AuthController::class, 'logoutAll']);
+    Route::get('/debug', function() {
+    return response()->json([
+        'message' => 'Debug test',
+        'status' => 'working'
+    ]);
+});
 
 });
