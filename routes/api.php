@@ -25,5 +25,22 @@ Route::middleware(['auth.jwt'])->group(function () {
     Route::get('/user', fn() => auth()->user());
     Route::get('v1/auth/sessions', [AuthController::class, 'sessions']);
     Route::post('v1/auth/logout-all', [AuthController::class, 'logoutAll']);
+});
 
+// أضف هال route الجديد للتأكد من أن الـ API شغال
+Route::post('v1/auth/test-login', function() {
+    return response()->json([
+        'status' => 'success', 
+        'message' => 'Login endpoint is reachable',
+        'timestamp' => now()
+    ]);
+});
+
+// أضف route للتأكد من أن الـ server شغال
+Route::get('/health', function() {
+    return response()->json([
+        'status' => 'healthy',
+        'service' => 'Talabiyatec API',
+        'timestamp' => now()
+    ]);
 });
