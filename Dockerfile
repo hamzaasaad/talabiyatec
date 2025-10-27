@@ -29,9 +29,6 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chmod -R 775 /var/www/html/storage
 
-# Generate key
-RUN php artisan key:generate
-
 # Expose port 10000
 EXPOSE 10000
 
