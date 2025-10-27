@@ -29,8 +29,11 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html/storage
 RUN chmod -R 775 /var/www/html/storage
 
-# Expose port 8000
-EXPOSE 8000
+# Generate key
+RUN php artisan key:generate
+
+# Expose port 10000
+EXPOSE 10000
 
 # Start server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan serve --host=0.0.0.0 --port=10000
