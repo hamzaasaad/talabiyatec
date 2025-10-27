@@ -8,7 +8,8 @@ RUN apk add --no-cache \
     oniguruma-dev \
     libxml2-dev \
     zip \
-    unzip
+    unzip \
+    mysql-client
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
@@ -22,18 +23,14 @@ WORKDIR /var/www/html
 # Copy application
 COPY . .
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install dependencies (بإعدادات آمنة)
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Fix permissions
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chmod -R 775 /var/www/html/storage
-
-# Generate key
-RUN php artisan key:generate
+RUN chmod -R 775 storage bootstrap/cache
 
 # Expose port 10000
 EXPOSE 10000
 
-# Start only the server - worker will be separate
+# Start server
 CMD php artisan serve --host=0.0.0.0 --port=10000
